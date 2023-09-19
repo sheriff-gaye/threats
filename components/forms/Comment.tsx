@@ -16,9 +16,9 @@ import {
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+
 import { CommentValidation } from "@/lib/validations/thread";
 import { addCommentToThread } from "@/lib/actions/thread.action";
-
 
 interface Props {
   threadId: string;
