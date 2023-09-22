@@ -4,8 +4,7 @@ import { revalidatePath } from "next/cache";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose"
-import { create } from "domain";
-import { model } from "mongoose";
+
 
 interface Params {
     text: string,
@@ -123,14 +122,13 @@ export async function addCommentToThread(
     connectToDB();
 
     try {
-        // Find the original thread by its ID
+       
         const originalThread = await Thread.findById(threadId);
 
         if (!originalThread) {
             throw new Error("Thread not found");
         }
 
-        // Create the new comment thread
         const commentThread = new Thread({
             text: commentText,
             author: userId,
@@ -140,10 +138,7 @@ export async function addCommentToThread(
         // Save the comment thread to the database
         const savedCommentThread = await commentThread.save();
         originalThread.children.push(savedCommentThread._id);
-
-
         await originalThread.save();
-
         revalidatePath(path);
     } catch (err) {
         console.error("Error while adding comment:", err);

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { z } from "zod";
 import Image from "next/image";
